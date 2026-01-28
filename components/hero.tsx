@@ -7,35 +7,35 @@ export function Hero() {
   return (
     <section className="pt-8 pb-12">
       <h1 className="text-3xl md:text-[2.75rem] font-bold tracking-tight text-foreground mb-6 leading-[1.15]">
-        hey, i'm <span className="italic">Adam</span>, thanks for stopping by!
+        helloooo0ooo im<span className="italic ml-4">Adam</span>
       </h1>
       <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-12">
-        i’m super interested in all things ML, and am currently excited about XYZ about how ai can understand text, images, and data well enough to build useful stuff on its own.</p>
+        I'm an ece student @
+        <Link href="https://www.engineering.utoronto.ca" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
+          <Image src="/Utoronto_coa.svg" alt="UofT" width={22} height={22} className="inline-block" />
+          UofT
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+        </Link>{" "}
+        who is super excited about all things ml. Currently, i'm diving deeper into self-supervised and representation learning as a ml researcher @{" "}
+        <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-1 font-bold text-foreground">
+          <Image src="/mit-logo.png" alt="MIT" width={22} height={22} className="inline-block" />
+          MIT
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+        </Link>.
+      </p>
 
       {/* Highlights Section */}
-      <div className="mb-12 space-y-5 text-xl leading-relaxed">
-        {/* Current */}
-        <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
-          <span className="text-muted-foreground select-none mt-0.5">◆</span>
-          <span className="flex items-center gap-1.5">
-            ECE @{" "}
-            <span className="group relative inline-flex items-center gap-0.5 cursor-default">
-              <Image src="/Utoronto_coa.svg" alt="UofT" width={24} height={24} className="inline-block" />
-              <span className="font-bold">University of Toronto</span>
-              <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
-              <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-            </span>
-          </span>
-        </div>
-
+      <div className="mb-12 space-y-3 text-xl leading-snug">
         {/* What I've been building */}
-        <div className="space-y-2">
-          <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+        <div className="space-y-1">
+          <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
             <span className="text-muted-foreground select-none mt-0.5">◆</span>
             <span className="italic font-bold text-muted-foreground">what i've been building:</span>
           </div>
-          <div className="ml-6 space-y-2">
-            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+          <div className="ml-6 space-y-1">
+            <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
               <span className="text-muted-foreground select-none mt-0.5">↳</span>
               <span>
                 shipped a tool that got{" "}
@@ -47,7 +47,7 @@ export function Hero() {
                 at uoft in the first week
               </span>
             </div>
-            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
               <span className="text-muted-foreground select-none mt-0.5">↳</span>
               <span>
                 won{" "}
@@ -59,7 +59,7 @@ export function Hero() {
                 at a hackathon for a project on distributed task scheduling
               </span>
             </div>
-            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
               <span className="text-muted-foreground select-none mt-0.5">↳</span>
               <span>
                 contributed perf improvements to{" "}
@@ -75,13 +75,13 @@ export function Hero() {
         </div>
 
         {/* Previously */}
-        <div className="space-y-2">
-          <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+        <div className="space-y-1">
+          <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
             <span className="text-muted-foreground select-none mt-0.5">◆</span>
             <span className="italic font-bold text-muted-foreground">previously:</span>
           </div>
-          <div className="ml-6 space-y-2">
-            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+          <div className="ml-6 space-y-1">
+            <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
               <span className="text-muted-foreground select-none mt-0.5">↳</span>
               <span>
                 interned at{" "}
@@ -93,16 +93,16 @@ export function Hero() {
                 working on backend infra
               </span>
             </div>
-            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
               <span className="text-muted-foreground select-none mt-0.5">↳</span>
               <span>
                 research @{" "}
-                <span className="group relative inline-flex items-center gap-0.5 cursor-default">
+                <Link href="https://www.engineering.utoronto.ca" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5">
                   <Image src="/Utoronto_coa.svg" alt="UofT" width={22} height={22} className="inline-block" />
                   <span className="font-bold">UofT ML Lab</span>
                   <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
                   <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-                </span>
+                </Link>
               </span>
             </div>
           </div>

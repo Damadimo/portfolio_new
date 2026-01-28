@@ -11,8 +11,8 @@ export default function Home() {
       <Header />
       <main className="max-w-[52rem] mx-auto px-8 pt-24 pb-16">
         <Hero />
-        <Projects />
         <Experience />
+        <Projects />
       </main>
     </div>
   )
