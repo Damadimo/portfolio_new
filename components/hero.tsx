@@ -1,29 +1,131 @@
 import Link from "next/link"
+import Image from "next/image"
+import { ArrowRight } from "lucide-react"
 import { SpotifyWidget } from "./spotify-widget"
 
 export function Hero() {
   return (
     <section className="pt-8 pb-12">
-      <h1 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
-        hey, i'm <span className="italic">Adam</span> -
+      <h1 className="text-3xl md:text-[2.75rem] font-bold tracking-tight text-foreground mb-6 leading-[1.15]">
+        hey, i'm <span className="italic">Adam</span>, thanks for stopping by!
       </h1>
-      <p className="text-lg text-muted-foreground leading-relaxed max-w-lg mb-6">
-        ece student at uoft. i like building things that work and breaking things to see why they don't. super interested in applied ml right now
-      </p>
+      <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-12">
+        i’m super interested in all things ML, and am currently excited about XYZ about how ai can understand text, images, and data well enough to build useful stuff on its own.</p>
+
+      {/* Highlights Section */}
+      <div className="mb-12 space-y-5 text-xl leading-relaxed">
+        {/* Current */}
+        <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+          <span className="text-muted-foreground select-none mt-0.5">◆</span>
+          <span className="flex items-center gap-1.5">
+            ECE @{" "}
+            <span className="group relative inline-flex items-center gap-0.5 cursor-default">
+              <Image src="/Utoronto_coa.svg" alt="UofT" width={24} height={24} className="inline-block" />
+              <span className="font-bold">University of Toronto</span>
+              <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+              <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+            </span>
+          </span>
+        </div>
+
+        {/* What I've been building */}
+        <div className="space-y-2">
+          <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+            <span className="text-muted-foreground select-none mt-0.5">◆</span>
+            <span className="italic font-bold text-muted-foreground">what i've been building:</span>
+          </div>
+          <div className="ml-6 space-y-2">
+            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">↳</span>
+              <span>
+                shipped a tool that got{" "}
+                <span className="group relative inline-block font-bold cursor-default">
+                  500+ users
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                </span>{" "}
+                at uoft in the first week
+              </span>
+            </div>
+            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">↳</span>
+              <span>
+                won{" "}
+                <span className="group relative inline-block font-bold cursor-default">
+                  $5K
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                </span>{" "}
+                at a hackathon for a project on distributed task scheduling
+              </span>
+            </div>
+            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">↳</span>
+              <span>
+                contributed perf improvements to{" "}
+                <Link href="#" className="group relative inline-block font-bold">
+                  open source project
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                </Link>{" "}
+                (40% faster cold starts)
+              </span>
+            </div>
+          </div>
+        </div>
+
+        {/* Previously */}
+        <div className="space-y-2">
+          <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+            <span className="text-muted-foreground select-none mt-0.5">◆</span>
+            <span className="italic font-bold text-muted-foreground">previously:</span>
+          </div>
+          <div className="ml-6 space-y-2">
+            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">↳</span>
+              <span>
+                interned at{" "}
+                <Link href="#" className="group relative inline-block font-bold">
+                  Company
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                </Link>{" "}
+                working on backend infra
+              </span>
+            </div>
+            <div className="flex items-start gap-3 py-1.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">↳</span>
+              <span>
+                research @{" "}
+                <span className="group relative inline-flex items-center gap-0.5 cursor-default">
+                  <Image src="/Utoronto_coa.svg" alt="UofT" width={22} height={22} className="inline-block" />
+                  <span className="font-bold">UofT ML Lab</span>
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                  <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                </span>
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
       
+      {/* CTA Buttons */}
       <div className="flex flex-col gap-4">
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-6">
           <Link
             href="#work"
-            className="inline-flex items-center justify-center px-4 py-2 bg-primary text-primary-foreground text-sm font-medium rounded hover:opacity-90 transition-opacity"
+            className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
           >
-            see my projects
+            Checkout what I've built
           </Link>
           <Link
             href="#experience"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="group relative inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            experience
+            Learn more about me
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-[calc(100%-1.25rem)] bg-current/20" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-[calc(100%-1.25rem)]" />
           </Link>
         </div>
         

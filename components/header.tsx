@@ -14,25 +14,31 @@ export function Header() {
 
   return (
     <header className="fixed top-4 left-1/2 -translate-x-1/2 z-50">
-      <div className="flex items-center gap-6 px-6 py-3 rounded-full bg-background/50 backdrop-blur-2xl border border-foreground/[0.08] shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset,0_8px_32px_-8px_rgba(0,0,0,0.2)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)_inset,0_8px_32px_-8px_rgba(0,0,0,0.5)]">
+      <div className="flex items-center gap-6 px-6 py-3 rounded-full bg-background/70 backdrop-blur-md border border-foreground/[0.08] shadow-[0_0_0_1px_rgba(255,255,255,0.05)_inset,0_8px_32px_-8px_rgba(0,0,0,0.2)] dark:shadow-[0_0_0_1px_rgba(255,255,255,0.08)_inset,0_8px_32px_-8px_rgba(0,0,0,0.5)]">
         <Link
           href="/"
-          className="font-medium text-foreground hover:opacity-70 transition-opacity"
+          className="group relative font-medium text-foreground"
         >
-          Adam Ab
+          adam ab
+          <span className="absolute left-0 -bottom-0.5 h-[2px] w-full bg-foreground/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-foreground transition-all duration-[420ms] ease-out group-hover:w-full" />
         </Link>
         <nav className="flex items-center gap-4">
           <Link
             href="#work"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="group relative text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             projects
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
           </Link>
           <Link
             href="#experience"
-            className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+            className="group relative text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             experience
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
           </Link>
           <div className="w-px h-4 bg-foreground/10" />
           <a

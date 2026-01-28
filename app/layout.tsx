@@ -1,11 +1,16 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Inter, JetBrains_Mono } from 'next/font/google'
+import { Libre_Caslon_Text, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import './globals.css'
 
-const _inter = Inter({ subsets: ["latin"] });
+const libreCaslon = Libre_Caslon_Text({ 
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  style: ["normal", "italic"],
+  variable: "--font-serif"
+});
 const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -13,21 +18,8 @@ export const metadata: Metadata = {
   description: 'Electrical and Computer Engineering student at the University of Toronto',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: '/adam_logo.png',
+    apple: '/adam_logo.png',
   },
 }
 
@@ -38,7 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`font-sans antialiased`}>
+      <body className={`${libreCaslon.variable} font-serif antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

@@ -33,8 +33,8 @@ export function Highlights() {
       </h2>
       <ul className="space-y-2.5">
         {highlights.map((item, index) => (
-          <li key={index} className="flex items-start gap-2 text-foreground">
-            <span className="text-muted-foreground select-none">-</span>
+          <li key={index} className="flex items-start gap-2 text-foreground py-2 px-3 -mx-3 rounded-lg transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary/50 hover:shadow-sm">
+            <span className="text-muted-foreground select-none">◆</span>
             <span>
               {item.text}{" "}
               {item.link ? (
