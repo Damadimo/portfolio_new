@@ -18,9 +18,8 @@ export function Hero() {
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
         </Link>{" "}
         who is super excited about all things ml. Currently, i'm diving deeper into self-supervised and representation learning as a ml researcher @{" "}
-        <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-1 font-bold text-foreground">
-          <Image src="/mit-logo.png" alt="MIT" width={22} height={22} className="inline-block" />
-          MIT
+        <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
+          <Image src="/mit_job_logo.png" alt="MIT" width={48} height={24} className="inline-block translate-y-0.5" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
         </Link>.
@@ -113,19 +112,19 @@ export function Hero() {
       <div className="flex flex-col gap-4">
         <div className="flex items-center gap-6">
           <Link
-            href="#work"
-            className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground text-sm font-medium rounded-lg hover:opacity-90 transition-opacity"
+            href="/projects"
+            className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground text-base font-medium rounded-lg hover:opacity-90 transition-opacity"
           >
             Checkout what I've built
           </Link>
           <Link
-            href="#experience"
-            className="group relative inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground transition-colors"
+            href="/about"
+            className="group relative inline-flex items-center gap-1.5 text-base text-muted-foreground hover:text-foreground transition-colors"
           >
             Learn more about me
-            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-[calc(100%-1.25rem)] bg-current/20" />
-            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-[calc(100%-1.25rem)]" />
+            <ArrowRight className="h-5 w-5 transition-transform group-hover:translate-x-0.5" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-[calc(100%-1.5rem)] bg-current/20" />
+            <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-[calc(100%-1.5rem)]" />
           </Link>
         </div>
         

@@ -25,36 +25,36 @@ const projects = [
 export function Projects() {
   return (
     <section id="work" className="py-12 border-t border-border scroll-mt-20">
-      <h2 className="text-base font-medium text-muted-foreground mb-8">
-        things i've built:
+      <h2 className="text-xl font-bold text-foreground mb-8">
+        Projects
       </h2>
 
       <div className="space-y-6">
         {projects.map((project, index) => (
-          <div key={index} className="group p-5 -mx-5 rounded-xl transition-all duration-200 hover:-translate-y-1 hover:bg-secondary/50 hover:shadow-md">
-            <div className="flex items-center gap-2 mb-1.5">
+          <div key={index} className="group p-4 -mx-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary/50">
+            <div className="flex items-center gap-2 mb-1">
               {project.link ? (
                 <Link
                   href={project.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-lg font-medium text-foreground hover:underline underline-offset-2 inline-flex items-center gap-1"
+                  className="text-xl font-semibold text-foreground hover:underline underline-offset-2 inline-flex items-center gap-1.5"
                 >
                   {project.title}
-                  <ArrowUpRight className="h-4 w-4 opacity-50" />
+                  <ArrowUpRight className="h-5 w-5 opacity-50" />
                 </Link>
               ) : (
-                <span className="text-lg font-medium text-foreground">{project.title}</span>
+                <span className="text-xl font-semibold text-foreground">{project.title}</span>
               )}
             </div>
-            <p className="text-muted-foreground text-base mb-3">
+            <p className="text-muted-foreground text-lg mb-2.5">
               {project.description}
             </p>
             <div className="flex flex-wrap gap-2">
               {project.tech.map((tech) => (
                 <span
                   key={tech}
-                  className="px-2.5 py-1 text-sm text-muted-foreground bg-secondary rounded"
+                  className="px-2.5 py-1 text-sm text-muted-foreground bg-secondary rounded-md"
                 >
                   {tech}
                 </span>

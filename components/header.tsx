@@ -21,12 +21,12 @@ export function Header() {
         >
           <span className="sm:hidden">adam</span>
           <span className="hidden sm:inline">adam ab</span>
-          <span className="absolute left-0 -bottom-0.5 h-[2px] w-full bg-foreground/20" />
-          <span className="absolute left-0 -bottom-0.5 h-[2px] w-0 bg-foreground transition-all duration-[420ms] ease-out group-hover:w-full" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
         </Link>
         <nav className="flex items-center gap-5">
           <Link
-            href="#work"
+            href="/projects"
             className="group relative text-[0.95rem] text-muted-foreground hover:text-foreground transition-colors"
           >
             projects
@@ -34,10 +34,11 @@ export function Header() {
             <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
           </Link>
           <Link
-            href="#experience"
-            className="group relative text-[0.95rem] text-muted-foreground hover:text-foreground transition-colors"
+            href="/about"
+            className="group relative text-[0.95rem] text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap"
           >
-            experience
+            <span className="sm:hidden">about</span>
+            <span className="hidden sm:inline">about me</span>
             <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
             <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
           </Link>
