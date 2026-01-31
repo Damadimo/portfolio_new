@@ -124,3 +124,17 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Spotify album strip scroll animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animation-paused {
+  animation-play-state: paused !important;
+}

@@ -1,28 +1,27 @@
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
-import { SpotifyWidget } from "./spotify-widget"
 
 export function Hero() {
   return (
     <section className="pt-8 pb-12">
-      <h1 className="text-3xl md:text-[2.75rem] font-bold tracking-tight text-foreground mb-6 leading-[1.15]">
-        helloooo0ooo im<span className="italic ml-4">Adam</span>
+      <h1 className="text-3xl md:text-[2.75rem] tracking-tight text-foreground mb-4 leading-[1.15]">
+        helloooo0ooo im<span className="font-bold italic ml-4">Adam</span>
       </h1>
-      <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-12">
-        I'm an ece student @
+      <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10">
+        i'm an ece student @{" "}
         <Link href="https://www.engineering.utoronto.ca" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
-          <Image src="/Utoronto_coa.svg" alt="UofT" width={22} height={22} className="inline-block" />
+          <Image src="/Utoronto_coa.svg" alt="UofT" width={20} height={20} className="inline-block" />
           UofT
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
         </Link>{" "}
-        who is super excited about all things ml. Currently, i'm diving deeper into self-supervised and representation learning as a ml researcher @{" "}
+        and doing ml research @{" "}
         <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
-          <Image src="/mit_job_logo.png" alt="MIT" width={48} height={24} className="inline-block translate-y-0.5" />
+          <Image src="/mit_job_logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-        </Link>.
+        </Link>
       </p>
 
       {/* Highlights Section */}
@@ -127,8 +126,6 @@ export function Hero() {
             <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-[calc(100%-1.5rem)]" />
           </Link>
         </div>
-        
-        <SpotifyWidget />
       </div>
     </section>
   )
