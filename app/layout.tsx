@@ -14,9 +14,7 @@ const libreCaslon = Libre_Caslon_Text({
 const _jetbrainsMono = JetBrains_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Your Name - ECE @ UofT',
-  description: 'Electrical and Computer Engineering student at the University of Toronto',
-  generator: 'v0.app',
+  title: 'Adam Abdalla',
   icons: {
     icon: '/adam_logo.png',
     apple: '/adam_logo.png',

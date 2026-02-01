@@ -15,8 +15,7 @@ export function Hero() {
           UofT
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-        </Link>{" "}
-        and doing ml research @{" "}
+        </Link>{" "}, currently doing ml research @{" "}
         <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
           <Image src="/mit_job_logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
