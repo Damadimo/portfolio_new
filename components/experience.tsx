@@ -42,7 +42,7 @@ const experiences = [
 export function Experience() {
   return (
     <section id="experience" className="py-12 border-t border-border scroll-mt-20">
-      <h2 className="text-xl font-bold text-foreground mb-4">
+      <h2 className="text-lg sm:text-xl font-bold text-foreground mb-4">
         My work experience
       </h2>
       
@@ -62,13 +62,13 @@ export function Experience() {
             
             {/* Content */}
             <div className="flex-1 min-w-0">
-              <h3 className="text-xl font-semibold text-foreground leading-tight">
+              <h3 className="text-base sm:text-lg md:text-xl font-semibold text-foreground leading-tight">
                 {exp.role}
               </h3>
-              <p className="text-lg text-muted-foreground mt-0.5">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-0.5">
                 {exp.company} · {exp.startDate} - {exp.endDate} | {exp.location}
               </p>
-              <p className="text-lg text-muted-foreground mt-1">
+              <p className="text-sm sm:text-base md:text-lg text-muted-foreground mt-1">
                 {exp.description}
               </p>
             </div>
