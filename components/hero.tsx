@@ -17,7 +17,7 @@ export function Hero() {
       <h1 className="text-3xl md:text-[2.75rem] tracking-tight text-foreground mb-4 leading-[1.15]">
         helloooo0ooo im<span className="font-bold italic ml-4">Adam</span>
       </h1>
-      <p className="text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10 transition-transform duration-200 hover:-translate-y-0.5">
+      <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10 transition-transform duration-200 hover:-translate-y-0.5">
         i'm an ece student @{" "}
         <Link href="https://www.engineering.utoronto.ca" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
           <Image src="/Utoronto_coa.svg" alt="UofT" width={20} height={20} className="inline-block" />
@@ -33,7 +33,7 @@ export function Hero() {
       </p>
 
       {/* Highlights Section */}
-      <div className="mb-12 space-y-1 text-xl leading-snug">
+      <div className="mb-12 space-y-1 text-base sm:text-lg md:text-xl leading-snug">
         <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
           <span className="text-muted-foreground select-none mt-0.5">◆</span>
           <span className="italic font-bold text-muted-foreground">i like to build stuff:</span>
@@ -49,14 +49,14 @@ export function Hero() {
                   {item.link ? (
                     <Link href={item.link} target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-1.5 font-bold">
                       {item.bold}
-                      {Icon && <Icon className="h-4 w-4 inline-block" style={{ color: item.iconColor }} />}
+                      {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 inline-block" style={{ color: item.iconColor }} />}
                       <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
                       <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
                     </Link>
                   ) : (
                     <span className="group relative inline-flex items-center gap-1.5 font-bold cursor-default">
                       {item.bold}
-                      {Icon && <Icon className="h-4 w-4 inline-block" style={{ color: item.iconColor }} />}
+                      {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 inline-block" style={{ color: item.iconColor }} />}
                       <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
                       <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
                     </span>
