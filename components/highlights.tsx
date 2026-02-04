@@ -1,27 +1,45 @@
 import Link from "next/link"
 
-const highlights = [
+export const highlights = [
   {
-    text: "shipped a tool that got",
-    bold: "500+ users",
-    suffix: "at uoft in the first week",
+    text: "an",
+    bold: "ai (rc) car",
+    suffix: "that talks to you, and can take you anywhere you want",
+    link: "https://github.com/Damadimo/beemerai",
+    icon: "car",
+    iconColor: "#d4807a", // soft coral
   },
   {
-    text: "won",
-    bold: "$5K",
-    suffix: "at a hackathon for a project on distributed task scheduling",
+    text: "a claude-powered",
+    bold: "website cloner",
+    suffix: "(you give it a link, it clones the whole frontend)",
+    link: "https://github.com/Damadimo/PixelTwinWebCloner",
+    icon: "copy",
+    iconColor: "#a882c4", // soft purple
   },
   {
-    text: "interned at",
-    bold: "Company",
-    suffix: "working on backend infra",
-    link: "#",
+    text: "a",
+    bold: "local llm-platform",
+    suffix: "to run your own models on your own hardware (bye bye subscription fees)",
+    link: "https://github.com/Damadimo/local-llm-api",
+    icon: "server",
+    iconColor: "#6a9fb5", // soft teal
   },
   {
-    text: "contributed perf improvements to",
-    bold: "open source project",
-    suffix: "(40% faster cold starts)",
-    link: "#",
+    text: "a ",
+    bold: "privacy advisor agent",
+    suffix: "that automates privacy rights compliance with regulations like GDPR and CCPA",
+    link: "https://github.com/Damadimo/privacy_advisor_agent",
+    icon: "shield",
+    iconColor: "#7cb38a", // soft green
+  },
+  {
+    text: "a",
+    bold: "semantic similarity engine",
+    suffix: "from scratch",
+    link: "https://github.com/Damadimo/Semantic-Similarity-Engine",
+    icon: "search",
+    iconColor: "#d4a656", // soft gold
   },
 ]
 

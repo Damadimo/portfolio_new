@@ -44,7 +44,7 @@ export function Header() {
           </Link>
           <div className="w-px h-5 bg-foreground/10" />
           <a
-            href="https://github.com"
+            href="https://github.com/damadimo"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -53,7 +53,7 @@ export function Header() {
             <Github className="h-[18px] w-[18px]" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://linkedin.com/adabdal"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-colors"
@@ -62,7 +62,7 @@ export function Header() {
             <Linkedin className="h-[18px] w-[18px]" />
           </a>
           <a
-            href="mailto:you@mail.utoronto.ca"
+            href="mailto:adam1.abdalla@gmail.com"
             className="text-muted-foreground hover:text-foreground transition-colors"
             aria-label="Email"
           >

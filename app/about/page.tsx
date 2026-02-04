@@ -1,6 +1,7 @@
 import { Header } from "@/components/header"
 import { DotPattern } from "@/components/ui/dot-pattern"
 import { SpotifyWidget } from "@/components/spotify-widget"
+import { Signature } from "@/components/signature"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -77,6 +78,8 @@ export default function AboutPage() {
           </p>
           <SpotifyWidget />
         </section>
+
+        <Signature />
       </main>
     </div>
   )

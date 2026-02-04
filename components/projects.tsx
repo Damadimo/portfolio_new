@@ -3,22 +3,34 @@ import { ArrowUpRight } from "lucide-react"
 
 const projects = [
   {
-    title: "project name",
-    description: "one-liner about what it does and why it matters.",
-    tech: ["TypeScript", "Next.js", "PostgreSQL"],
-    link: "https://github.com",
+    title: "AI (RC) Car",
+    description: "An autonomous RC car that talks to you and can take you anywhere you want.",
+    tech: ["Python", "Hugging Face", "NLP", "esp32"],
+    link: "https://github.com/Damadimo/beemerai",
   },
   {
-    title: "another project",
-    description: "keep it brief. what problem does this solve?",
-    tech: ["Python", "FastAPI", "Redis"],
-    link: "https://github.com",
+    title: "Website Cloner",
+    description: "A Claude-powered tool that clones entire website frontends from just a link.",
+    tech: ["TypeScript", "Python", "Claude API", "FastAPI", "Next.js"],
+    link: "https://github.com/Damadimo/PixelTwinWebCloner",
   },
   {
-    title: "third project",
-    description: "maybe something with hardware or embedded systems.",
-    tech: ["C++", "Rust", "ARM"],
-    link: null,
+    title: "Local LLM Platform",
+    description: "Run your own language models on your own hardware - no subscription fees.",
+    tech: ["Python", "FastAPI", "PyTorch", "Docker", "Hugging Face"],
+    link: "https://github.com/Damadimo/local-llm-api",
+  },
+  {
+    title: "Privacy Advisor Agent",
+    description: "Automates privacy rights compliance with regulations like GDPR and CCPA.",
+    tech: ["Python", "LangChain", "Vector DB", "Ollama"],
+    link: "https://github.com/Damadimo/privacy_advisor_agent",
+  },
+  {
+    title: "Semantic Similarity Engine",
+    description: "A semantic similarity search engine built from scratch.",
+    tech: ["Python", "NumPy"],
+    link: "https://github.com/Damadimo/Semantic-Similarity-Engine",
   },
 ]
 

@@ -43,7 +43,7 @@ export function Experience() {
   return (
     <section id="experience" className="py-12 border-t border-border scroll-mt-20">
       <h2 className="text-xl font-bold text-foreground mb-4">
-        Experience
+        My work experience
       </h2>
       
       <div className="space-y-2">
