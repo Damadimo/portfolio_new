@@ -58,9 +58,9 @@ export default function AboutPage() {
               </div>
             </div>
             
-            {/* Photo - hidden on small screens */}
-            <div className="hidden md:block flex-shrink-0">
-              <div className="relative w-56 h-56 rounded-2xl overflow-hidden shadow-lg border border-border/50">
+            {/* Photo - centered on small screens */}
+            <div className="flex-shrink-0 flex justify-center md:justify-start">
+              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-lg border border-border/50">
                 <Image
                   src="/profile.jpeg"
                   alt="Adam"
