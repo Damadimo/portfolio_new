@@ -8,7 +8,7 @@ const experiences = [
     startDate: "Jan 2025",
     endDate: "Present",
     description: "Self-supervised geospatial learning from sparse Positive Unlabeled data.",
-    logo: "/mit_job_logo.png",
+    logo: "/mit-logo.png",
   },
   {
     company: "Data Passports",

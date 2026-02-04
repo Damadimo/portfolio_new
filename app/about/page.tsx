@@ -30,7 +30,7 @@ export default function AboutPage() {
                 </Link>{" "}
                 who is super excited about all things ml. Currently, i'm diving deeper into self-supervised and representation learning as a ml researcher @{" "}
                 <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
-                  <Image src="/mit_job_logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
+                  <Image src="/mit-logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
                   <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
                   <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
                 </Link>.
