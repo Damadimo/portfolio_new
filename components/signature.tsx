@@ -28,7 +28,7 @@ export function Signature() {
         />
         <div className="flex items-center gap-6 -translate-x-10 -translate-y-1">
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/adabdal/"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -37,7 +37,7 @@ export function Signature() {
             <Linkedin className="h-8 w-8" />
           </a>
           <a
-            href="https://github.com"
+            href="https://github.com/damadimo"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -46,7 +46,7 @@ export function Signature() {
             <Github className="h-8 w-8" />
           </a>
           <a
-            href="https://x.com"
+            href="https://x.com/yabadba"
             target="_blank"
             rel="noopener noreferrer"
             className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -57,7 +57,7 @@ export function Signature() {
             </svg>
           </a>
           <a
-            href="mailto:you@mail.utoronto.ca"
+            href="mailto:adam1.abdalla@gmail.com"
             className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
             aria-label="Email"
           >
@@ -69,7 +69,7 @@ export function Signature() {
       {/* Mobile: Icons only, centered */}
       <div className="flex md:hidden items-center justify-center gap-8">
         <a
-          href="https://linkedin.com"
+          href="https://www.linkedin.com/in/adabdal/"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -78,7 +78,7 @@ export function Signature() {
           <Linkedin className="h-7 w-7" />
         </a>
         <a
-          href="https://github.com"
+          href="https://github.com/damadimo"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -87,7 +87,7 @@ export function Signature() {
           <Github className="h-7 w-7" />
         </a>
         <a
-          href="https://x.com"
+          href="https://x.com/yabadba"
           target="_blank"
           rel="noopener noreferrer"
           className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
@@ -98,7 +98,7 @@ export function Signature() {
           </svg>
         </a>
         <a
-          href="mailto:you@mail.utoronto.ca"
+          href="mailto:adam1.abdalla@gmail.com"
           className="text-muted-foreground hover:text-foreground transition-all duration-200 hover:-translate-y-0.5"
           aria-label="Email"
         >

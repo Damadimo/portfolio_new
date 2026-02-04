@@ -19,7 +19,7 @@ export default function ContactPage() {
           
           <div className="space-y-6">
             <a
-              href="mailto:you@mail.utoronto.ca"
+              href="mailto:adam1.abdalla@gmail.com"
               className="group flex items-center gap-4 p-4 -mx-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary/50"
             >
               <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center">
@@ -27,12 +27,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-lg font-semibold text-foreground">Email</p>
-                <p className="text-base text-muted-foreground">you@mail.utoronto.ca</p>
+                <p className="text-base text-muted-foreground">adam1.abdalla@gmail.com</p>
               </div>
             </a>
             
             <a
-              href="https://github.com"
+              href="https://github.com/damadimo"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4 p-4 -mx-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary/50"
@@ -47,7 +47,7 @@ export default function ContactPage() {
             </a>
             
             <a
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/adabdal/"
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-4 p-4 -mx-4 rounded-xl transition-all duration-200 hover:-translate-y-0.5 hover:bg-secondary/50"

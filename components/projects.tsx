@@ -6,31 +6,31 @@ const projects = [
     title: "AI (RC) Car",
     description: "An autonomous RC car that talks to you and can take you anywhere you want.",
     tech: ["Python", "Hugging Face", "NLP", "esp32"],
-    link: "https://github.com/Damadimo/beemerai",
+    link: "https://github.com/damadimo/beemerai",
   },
   {
     title: "Website Cloner",
     description: "A Claude-powered tool that clones entire website frontends from just a link.",
     tech: ["TypeScript", "Python", "Claude API", "FastAPI", "Next.js"],
-    link: "https://github.com/Damadimo/PixelTwinWebCloner",
+    link: "https://github.com/damadimo/PixelTwinWebCloner",
   },
   {
     title: "Local LLM Platform",
     description: "Run your own language models on your own hardware - no subscription fees.",
     tech: ["Python", "FastAPI", "PyTorch", "Docker", "Hugging Face"],
-    link: "https://github.com/Damadimo/local-llm-api",
+    link: "https://github.com/damadimo/local-llm-api",
   },
   {
     title: "Privacy Advisor Agent",
     description: "Automates privacy rights compliance with regulations like GDPR and CCPA.",
     tech: ["Python", "LangChain", "Vector DB", "Ollama"],
-    link: "https://github.com/Damadimo/privacy_advisor_agent",
+    link: "https://github.com/damadimo/privacy_advisor_agent",
   },
   {
     title: "Semantic Similarity Engine",
     description: "A semantic similarity search engine built from scratch.",
     tech: ["Python", "NumPy"],
-    link: "https://github.com/Damadimo/Semantic-Similarity-Engine",
+    link: "https://github.com/damadimo/Semantic-Similarity-Engine",
   },
 ]
 
