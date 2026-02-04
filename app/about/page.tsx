@@ -12,10 +12,6 @@ export default function AboutPage() {
       <Header />
       <main className="max-w-[52rem] mx-auto px-8 pt-24 pb-16">
         <section className="pt-8">
-          <h1 className="text-3xl md:text-[2.75rem] font-bold tracking-tight text-foreground mb-8 leading-[1.15]">
-            About Me
-          </h1>
-          
           {/* Photo + Intro Section */}
           <div className="flex flex-col-reverse md:flex-row gap-8 mb-8">
             {/* Intro Text */}
@@ -60,7 +56,7 @@ export default function AboutPage() {
             
             {/* Photo - centered on small screens */}
             <div className="flex-shrink-0 flex justify-center md:justify-start">
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-lg border border-border/50">
+              <div className="relative w-56 h-56 sm:w-52 sm:h-52 md:w-56 md:h-56 rounded-2xl overflow-hidden shadow-lg border border-border/50">
                 <Image
                   src="/profile.jpeg"
                   alt="Adam"
