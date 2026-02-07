@@ -76,7 +76,7 @@ export function Hero() {
             href="/projects"
             className="inline-flex items-center justify-center px-5 py-2.5 bg-primary text-primary-foreground text-base font-medium rounded-lg hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
           >
-            Check out stuff i've built
+            Check out more stuff i've built
           </Link>
           <Link
             href="/about"
