@@ -18,7 +18,7 @@ export function Hero() {
         helloooo0ooo im<span className="font-bold italic ml-4">Adam</span>
       </h1>
       <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10 transition-transform duration-200 hover:-translate-y-0.5">
-        i'm an incoming engineering intern @{" "}
+        i'm an incoming eng intern @{" "}
         <Link href="https://www.shopify.com" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
           <Image src="/shopify-logo-png-transparent.png" alt="Shopify" width={22} height={22} className="inline-block" />
           Shopify
