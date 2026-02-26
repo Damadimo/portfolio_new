@@ -1,5 +1,4 @@
 import { Header } from "@/components/header"
-import { DotPattern } from "@/components/ui/dot-pattern"
 import { SpotifyWidget } from "@/components/spotify-widget"
 import { Signature } from "@/components/signature"
 import Image from "next/image"
@@ -8,7 +7,6 @@ import Link from "next/link"
 export default function AboutPage() {
   return (
     <div className="relative min-h-screen">
-      <DotPattern className="fixed inset-0 -z-10 opacity-50 dark:opacity-30" />
       <Header />
       <main className="max-w-[52rem] mx-auto px-8 pt-24 pb-16">
         <section className="pt-8">
@@ -40,7 +38,7 @@ export default function AboutPage() {
                   </div>
                   <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
                     <span className="text-muted-foreground select-none mt-0.5">↳</span>
-                    <span><span className="font-bold text-foreground">calisthenics</span> (im hardstuck pre-planche)</span>
+                    <span><span className="font-bold text-foreground">calisthenics</span></span>
                   </div>
                   <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
                     <span className="text-muted-foreground select-none mt-0.5">↳</span>

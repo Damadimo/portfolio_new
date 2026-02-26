@@ -18,25 +18,31 @@ export function Hero() {
         helloooo0ooo im<span className="font-bold italic ml-4">Adam</span>
       </h1>
       <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10 transition-transform duration-200 hover:-translate-y-0.5">
-        i'm an ece student @{" "}
+        i'm an incoming engineering intern @{" "}
+        <Link href="https://www.shopify.com" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
+          <Image src="/shopify-logo-png-transparent.png" alt="Shopify" width={22} height={22} className="inline-block" />
+          Shopify
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+        </Link>{" "}and an ML researcher @{" "}
+        <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
+          <Image src="/mit-logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+        </Link>. I am also studying ece @{" "}
         <Link href="https://www.engineering.utoronto.ca" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
           <Image src="/Utoronto_coa.svg" alt="UofT" width={20} height={20} className="inline-block" />
           UofT
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-        </Link>{" "}, currently doing ml research @{" "}
-        <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
-          <Image src="/mit-logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
-          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
-          <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-        </Link>
+        </Link>{" "}which has been lots of fun!!
       </p>
 
       {/* Highlights Section */}
       <div className="mb-12 space-y-1 text-base sm:text-lg md:text-xl leading-snug">
         <div className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
           <span className="text-muted-foreground select-none mt-0.5">◆</span>
-          <span className="italic font-bold text-muted-foreground">i like to build stuff:</span>
+          <span className="italic font-bold text-muted-foreground">some cool things ive built:</span>
         </div>
         <div className="ml-6 space-y-1">
           {highlights.map((item, index) => {

@@ -2,6 +2,15 @@ import Image from "next/image"
 
 const experiences = [
   {
+    company: "Shopify",
+    role: "Incoming Engineering Intern",
+    location: "Toronto, ON",
+    startDate: "May 2026",
+    endDate: "Aug 2026",
+    description: "Incoming engineering intern for Summer 2026.",
+    logo: "/shopify-logo-png-transparent.png",
+  },
+  {
     company: "MIT",
     role: "Machine Learning Researcher",
     location: "Cambridge, MA",
