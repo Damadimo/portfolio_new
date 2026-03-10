@@ -1,0 +1,38 @@
+{
+  "name": "adamab",
+  "version": "1.0.0",
+  "description": "Adam Abdalla's portfolio — right in your terminal",
+  "type": "module",
+  "bin": {
+    "adamab": "./bin/index.js"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "ascii/"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "cli",
+    "portfolio",
+    "adam",
+    "abdalla",
+    "terminal"
+  ],
+  "author": "Adam Abdalla <adam1.abdalla@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/damadimo/adamab"
+  },
+  "dependencies": {
+    "boxen": "^8.0.0",
+    "chalk": "^5.4.0",
+    "commander": "^13.0.0",
+    "figlet": "^1.11.0",
+    "gradient-string": "^3.0.0",
+    "open": "^10.1.0"
+  }
+}
