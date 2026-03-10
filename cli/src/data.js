@@ -1,13 +1,13 @@
 export const profile = {
   name: 'Adam Abdalla',
-  tagline: 'ECE student @ UofT  ·  ML Researcher @ MIT',
+  tagline: 'helloOOoo, I\'m Adam, an ece student @ UofT and ML researcher @ MIT. \n\nRight now I\'m super interested in how we can make ML work-loads more effecient and scalable. \n\n I love building cool shit so if you have any fun ideas hit me up!!',
   about: [
-    "I'm an ECE student @ UofT who is super excited about all things ML.",
-    'Currently diving deeper into self-supervised and representation',
-    'learning as a ML researcher @ MIT.',
+    "I'm an ece student @ UofT who is super excited about all things ML.",
+    'Currently diving deeper into positive unlabeled learning',
+    'as a ML researcher @ MIT.',
     '',
     'When I\'m not coding, I\'m playing guitar, doing calisthenics,',
-    'tinkering with ThinkPads, or customizing Linux (btw I use Arch).',
+    'tinkering with ThinkPads, or customizing my Linux setup (Arch btw lol).',
   ],
 };
 
@@ -45,6 +45,13 @@ export const projects = [
 ];
 
 export const experience = [
+  {
+    role: 'Incoming Engineering Intern',
+    company: 'Shopify',
+    location: 'Toronto, ON',
+    period: 'May 2026 – Aug 2026',
+    desc: 'Incoming engineering intern working on ML for Summer 2026.',
+  },
   {
     role: 'Machine Learning Researcher',
     company: 'MIT',

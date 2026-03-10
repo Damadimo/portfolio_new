@@ -3,16 +3,15 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import chalk from 'chalk';
 import boxen from 'boxen';
-import gradient from 'gradient-string';
 import figlet from 'figlet';
 import { profile, projects, experience, links } from './data.js';
-
-const p = '#8b5cf6';
-const accent = '#a855f7';
-const muted = '#94a3b8';
-const dim = '#374151';
-const ok = '#22c55e';
-const grad = gradient(['#6366f1', '#8b5cf6', '#d946ef']);
+import {
+  getTheme,
+  getThemeGradient,
+  getThemeIds,
+  themes,
+  NAME_FONT,
+} from './themes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -65,10 +64,36 @@ function scaleArt(lines) {
   return out;
 }
 
+function wrapText(text, maxWidth) {
+  if (!text || maxWidth < 10) return [text || ''];
+  const wrap = (str) => {
+    const words = str.trim().split(/\s+/);
+    const lines = [];
+    let current = '';
+    for (const w of words) {
+      const toAdd = current ? current + ' ' + w : w;
+      if (toAdd.length <= maxWidth) {
+        current = toAdd;
+      } else {
+        if (current) lines.push(current);
+        current = w.length > maxWidth ? w : w;
+      }
+    }
+    if (current) lines.push(current);
+    return lines;
+  };
+  const paragraphs = text.split(/\n\n+/);
+  return paragraphs.flatMap((p, i) =>
+    i > 0 ? ['', ...wrap(p)] : wrap(p)
+  );
+}
+
 function buildProfile() {
+  const theme = getTheme();
+  const grad = getThemeGradient();
   let nameLines;
   try {
-    const raw = figlet.textSync('Adam', { font: 'ANSI Shadow' });
+    const raw = figlet.textSync('Adam', { font: NAME_FONT });
     nameLines = raw.split('\n');
     while (nameLines.length && !nameLines[nameLines.length - 1].trim())
       nameLines.pop();
@@ -85,16 +110,18 @@ function buildProfile() {
   const gap = 5;
   const lpad = 2;
   const textCol = artMax + gap;
+  const nameWidth = Math.max(...nameLines.map((l) => l.length));
+
+  const availableWidth = process.stdout.columns
+    ? process.stdout.columns - textCol - lpad - 2
+    : 60;
+  const textWidth = Math.min(nameWidth, Math.max(40, availableWidth));
+  const taglineLines = wrapText(profile.tagline, textWidth);
 
   const rightSide = [
     ...nameColored,
     '',
-    chalk.hex(muted)('ECE student @ UofT'),
-    chalk.hex(muted)('ML Researcher @ MIT'),
-    '',
-    chalk.white('excited about all things ML.'),
-    chalk.white('diving into self-supervised'),
-    chalk.white('and representation learning.'),
+    ...taglineLines.map((l) => chalk.white(l)),
   ];
 
   const coloredArt = grad.multiline(art.join('\n')).split('\n');
@@ -114,25 +141,29 @@ function buildProfile() {
   return out.join('\n');
 }
 
-const card = (content, active = false) =>
-  boxen(content, {
+const card = (content, active = false) => {
+  const { primary: p, dim } = getTheme();
+  return boxen(content, {
     padding: { top: 0, bottom: 0, left: 1, right: 1 },
     margin: { top: 0, bottom: 0, left: 4, right: 0 },
     borderStyle: 'round',
     borderColor: active ? p : dim,
     dimBorder: !active,
   });
+};
 
 function hintLine(items) {
+  const { dim } = getTheme();
   return '\n' + chalk.hex(dim)('    ' + items.join('  ·  '));
 }
 
 // every renderer returns a string — no console.log
 
 export function menuPage(idx) {
+  const { primary: p, muted } = getTheme();
   const o = [buildProfile(), ''];
 
-  const labels = ['Projects', 'Experience', 'Links', 'About', 'Exit'];
+  const labels = ['Projects', 'Experience', 'Links', 'About', 'Theme', 'Exit'];
   for (let i = 0; i < labels.length; i++) {
     const on = i === idx;
     const pre = on ? chalk.hex(p)('  > ') : '    ';
@@ -145,6 +176,7 @@ export function menuPage(idx) {
 }
 
 export function projectsPage(idx) {
+  const { primary: p, accent, muted, dim, ok } = getTheme();
   const o = [chalk.hex(p).bold('\n    ── Projects ──\n')];
 
   for (let i = 0; i < projects.length; i++) {
@@ -166,6 +198,7 @@ export function projectsPage(idx) {
 }
 
 export function experiencePage(idx) {
+  const { primary: p, accent, muted, dim } = getTheme();
   const o = [chalk.hex(p).bold('\n    ── Experience ──\n')];
 
   for (let i = 0; i < experience.length; i++) {
@@ -193,6 +226,7 @@ export function experiencePage(idx) {
 }
 
 export function linksPage(idx) {
+  const { primary: p, muted, dim, ok } = getTheme();
   const o = [chalk.hex(p).bold('\n    ── Links ──\n')];
 
   const rows = [
@@ -218,6 +252,7 @@ export function linksPage(idx) {
 }
 
 export function aboutPage() {
+  const { primary: p } = getTheme();
   const content = profile.about
     .map((line) => (line ? chalk.white(line) : ''))
     .join('\n');
@@ -235,7 +270,28 @@ export function aboutPage() {
   return o.join('\n');
 }
 
+export function themePage(idx) {
+  const { primary: p, muted, dim } = getTheme();
+  const themeIds = getThemeIds();
+  const o = [chalk.hex(p).bold('\n    ── Theme ──\n')];
+
+  for (let i = 0; i < themeIds.length; i++) {
+    const id = themeIds[i];
+    const theme = themes[id];
+    const on = i === idx;
+    const pre = on ? chalk.hex(p)('  > ') : '    ';
+    const txt = on
+      ? chalk.bold.white(theme.name)
+      : chalk.hex(muted)(theme.name);
+    o.push(pre + txt);
+  }
+
+  o.push(hintLine(['j/k navigate', 'l/enter select', 'h/q back']));
+  return o.join('\n');
+}
+
 export function goodbyePage() {
+  const { primary: p, accent } = getTheme();
   return boxen(chalk.hex(p).bold('Thanks for stopping by.'), {
     padding: { top: 0, bottom: 0, left: 2, right: 2 },
     margin: { top: 1, bottom: 1, left: 4, right: 0 },

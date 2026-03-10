@@ -6,11 +6,13 @@ import {
   experiencePage,
   linksPage,
   aboutPage,
+  themePage,
   goodbyePage,
 } from './ui.js';
+import { setTheme, getThemeIds } from './themes.js';
 import { projects, experience, links } from './data.js';
 
-const menuTargets = ['projects', 'experience', 'links', 'about', 'exit'];
+const menuTargets = ['projects', 'experience', 'links', 'about', 'theme', 'exit'];
 
 const linkUrls = [
   links.github,
@@ -25,6 +27,7 @@ const pageLengths = {
   experience: experience.length,
   links: linkUrls.length,
   about: 0,
+  theme: getThemeIds().length,
 };
 
 const renderers = {
@@ -33,6 +36,7 @@ const renderers = {
   experience: experiencePage,
   links: linksPage,
   about: aboutPage,
+  theme: themePage,
 };
 
 const ALT_ON = '\x1B[?1049h';
@@ -100,6 +104,10 @@ export async function run() {
       if (page === 'menu') {
         const target = menuTargets[idx];
         target === 'exit' ? exit() : go(target);
+      } else if (page === 'theme') {
+        const themeIds = getThemeIds();
+        setTheme(themeIds[idx]);
+        go('menu');
       } else if (page === 'projects') {
         await open(projects[idx].link);
       } else if (page === 'links') {
