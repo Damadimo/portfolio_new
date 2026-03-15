@@ -61,11 +61,9 @@ export async function run() {
   process.stdin.resume();
 
   const draw = () => {
-    const frame = renderers[page](idx);
-    // \x1B[K on every line erases leftover chars from wider previous frames
-    // \x1B[0J after the last line erases leftover rows from taller previous frames
+    const frame = renderers[page](idx).replace(/\n$/, '');
     const lines = frame.split('\n').map((l) => l + '\x1B[K').join('\n');
-    write(HIDE + HOME + lines + '\n\x1B[0J' + SHOW);
+    write(HIDE + HOME + lines + '\x1B[0J' + SHOW);
   };
 
   const go = (target) => {

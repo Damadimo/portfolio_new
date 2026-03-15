@@ -16,7 +16,7 @@ const experiences = [
     location: "Cambridge, MA",
     startDate: "Jan 2025",
     endDate: "Present",
-    description: "Self-supervised geospatial learning from sparse Positive Unlabeled data.",
+    description: "Positive Unlabeled learning.",
     logo: "/mit-logo.png",
   },
   {

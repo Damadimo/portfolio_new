@@ -3,299 +3,225 @@ import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import chalk from 'chalk';
 import boxen from 'boxen';
-import figlet from 'figlet';
 import { profile, projects, experience, links } from './data.js';
-import {
-  getTheme,
-  getThemeGradient,
-  getThemeIds,
-  themes,
-  NAME_FONT,
-} from './themes.js';
+import { getTheme, getThemeGradient, getThemeIds, themes } from './themes.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function loadArt() {
+const PAD = 2;
+const MIN_WIDTH = 40;
+
+function getContentWidth() {
+  const cols = process.stdout.columns || 80;
+  return Math.max(MIN_WIDTH, cols - 8);
+}
+
+function loadName() {
   const raw = readFileSync(
-    path.join(__dirname, '..', 'ascii', 'terminal_ascii_art_photo.txt'),
+    path.join(__dirname, '..', 'ascii', 'name.txt'),
     'utf8'
   );
   const lines = raw.split('\n');
-  let first = 0;
-  let last = lines.length - 1;
-  while (first < lines.length && !lines[first].trim()) first++;
-  while (last > first && !lines[last].trim()) last--;
-  const content = lines.slice(first, last + 1);
-  let minIndent = Infinity;
-  for (const l of content) {
-    if (!l.trim()) continue;
-    minIndent = Math.min(minIndent, l.length - l.trimStart().length);
-  }
-  return content.map((l) => l.slice(minIndent).trimEnd());
+  while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  return lines.filter((l) => l.trim());
 }
 
-let artLines = [];
+let nameLines = [];
 try {
-  artLines = loadArt();
+  nameLines = loadName();
 } catch {
-  /* portrait file missing — menu still works */
+  nameLines = ['  ADAM'];
 }
 
-function scaleArt(lines) {
+function wrap(str, width) {
+  if (!str || width < 8) return [str || ''];
+  const words = str.trim().split(/\s+/);
   const out = [];
-  for (let y = 0; y < lines.length; y += 2) {
-    let row = '';
-    for (let x = 0; x < lines[y].length; x += 2) {
-      let ch = lines[y][x] ?? ' ';
-      if (ch === ' ') {
-        const candidates = [
-          lines[y]?.[x + 1],
-          lines[y + 1]?.[x],
-          lines[y + 1]?.[x + 1],
-        ];
-        for (const c of candidates) {
-          if (c && c !== ' ') { ch = c; break; }
-        }
-      }
-      row += ch;
+  let line = '';
+  for (const w of words) {
+    const next = line ? line + ' ' + w : w;
+    if (next.length <= width) {
+      line = next;
+    } else {
+      if (line) out.push(line);
+      line = w.length > width ? w.slice(0, width) : w;
     }
-    out.push(row.trimEnd());
   }
+  if (line) out.push(line);
   return out;
 }
 
-function wrapText(text, maxWidth) {
-  if (!text || maxWidth < 10) return [text || ''];
-  const wrap = (str) => {
-    const words = str.trim().split(/\s+/);
-    const lines = [];
-    let current = '';
-    for (const w of words) {
-      const toAdd = current ? current + ' ' + w : w;
-      if (toAdd.length <= maxWidth) {
-        current = toAdd;
-      } else {
-        if (current) lines.push(current);
-        current = w.length > maxWidth ? w : w;
-      }
-    }
-    if (current) lines.push(current);
-    return lines;
-  };
-  const paragraphs = text.split(/\n\n+/);
-  return paragraphs.flatMap((p, i) =>
-    i > 0 ? ['', ...wrap(p)] : wrap(p)
-  );
+function padLine(s, width) {
+  return (s || '').slice(0, width).padEnd(width);
 }
 
-function buildProfile() {
-  const theme = getTheme();
+function stripAnsi(s) {
+  return (s || '').replace(/\x1B\[[0-9;]*m/g, '');
+}
+
+function buildProfile(maxLines, contentWidth) {
   const grad = getThemeGradient();
-  let nameLines;
-  try {
-    const raw = figlet.textSync('Adam', { font: NAME_FONT });
-    nameLines = raw.split('\n');
-    while (nameLines.length && !nameLines[nameLines.length - 1].trim())
-      nameLines.pop();
-  } catch {
-    nameLines = ['  ADAM'];
-  }
-
-  const nameColored = grad.multiline(nameLines.join('\n')).split('\n');
-  const art = artLines.length ? scaleArt(artLines) : [];
-
-  if (!art.length) return nameColored.join('\n');
-
-  const artMax = Math.max(...art.map((l) => l.length));
-  const gap = 5;
-  const lpad = 2;
-  const textCol = artMax + gap;
-  const nameWidth = Math.max(...nameLines.map((l) => l.length));
-
-  const availableWidth = process.stdout.columns
-    ? process.stdout.columns - textCol - lpad - 2
-    : 60;
-  const textWidth = Math.min(nameWidth, Math.max(40, availableWidth));
-  const taglineLines = wrapText(profile.tagline, textWidth);
-
-  const rightSide = [
-    ...nameColored,
-    '',
-    ...taglineLines.map((l) => chalk.white(l)),
-  ];
-
-  const coloredArt = grad.multiline(art.join('\n')).split('\n');
-  const totalLines = Math.max(art.length, rightSide.length);
-  const out = [];
-  const padStr = ' '.repeat(lpad);
-
-  for (let i = 0; i < totalLines; i++) {
-    const rawLen = i < art.length ? art[i].length : 0;
-    const artPart = i < coloredArt.length ? coloredArt[i] : '';
-    const hasText = i < rightSide.length;
-    const text = hasText ? rightSide[i] : '';
-    const space = hasText ? ' '.repeat(Math.max(0, textCol - rawLen)) : '';
-    out.push(padStr + artPart + space + text);
-  }
-
-  return out.join('\n');
+  const text = getTheme().text;
+  const innerWidth = contentWidth - 2;
+  const textWidth = Math.max(10, innerWidth - 2 * PAD);
+  const maxNameLines = 8;
+  const nameBudget = maxLines != null ? Math.max(1, Math.min(maxNameLines, maxLines - 2)) : maxNameLines;
+  const taglineBudget = maxLines != null ? Math.max(0, maxLines - nameBudget - 1) : 6;
+  const namePadded = nameLines.slice(0, nameBudget).map((l) => padLine(l.slice(0, textWidth), textWidth));
+  const nameColored = grad.multiline(namePadded.join('\n')).split('\n');
+  const lines = profile.tagline.split(/\n/).map((s) => s.trim());
+  const tagline = lines
+    .flatMap((line) => (line === '' ? [''] : wrap(line, textWidth)))
+    .slice(0, taglineBudget)
+    .map((l) => (l === '' ? l : chalk.hex(text)(l)));
+  const out = [...nameColored, '', ...tagline].map(
+    (l) => ' '.repeat(PAD) + l + ' '.repeat(Math.max(0, textWidth - stripAnsi(l).length)) + ' '.repeat(PAD)
+  );
+  return out;
 }
 
-const card = (content, active = false) => {
+function frame(content, contentWidth) {
+  const { dim } = getTheme();
+  return boxen(content, {
+    width: contentWidth,
+    padding: 0,
+    margin: 0,
+    borderStyle: 'round',
+    borderColor: dim,
+    dimBorder: true,
+  });
+}
+
+export function menuPage(idx) {
+  const { primary: p, text, muted } = getTheme();
+  const labels = ['Projects', 'Experience', 'Links', 'About', 'Theme', 'Exit'];
+  const contentWidth = getContentWidth();
+  const rows = process.stdout.rows || 24;
+  const borderAndMenu = 2 + 1 + labels.length + 1 + 1 + 1;
+  const maxProfileLines = Math.max(3, rows - borderAndMenu) + 1;
+  const profileLines = buildProfile(maxProfileLines, contentWidth);
+  const menuLines = labels.map((label, i) =>
+    (i === idx ? chalk.hex(p)('  > ') : '    ') + (i === idx ? chalk.hex(text).bold(label) : chalk.hex(muted)(label))
+  );
+  const hint = chalk.hex(getTheme().dim)('    j/k navigate  ·  l/enter select  ·  q quit');
+  const innerWidth = contentWidth - 2;
+  const all = [...profileLines, '', ...menuLines, '', hint];
+  const padded = all.map((line) => line + ' '.repeat(Math.max(0, innerWidth - stripAnsi(line).length)));
+  return frame(padded.join('\n'), contentWidth);
+}
+
+function sectionTitle(label) {
+  const { primary: p } = getTheme();
+  return chalk.hex(p).bold('\n    ── ' + label + ' ──\n');
+}
+
+function card(content, active = false) {
   const { primary: p, dim } = getTheme();
   return boxen(content, {
     padding: { top: 0, bottom: 0, left: 1, right: 1 },
-    margin: { top: 0, bottom: 0, left: 4, right: 0 },
+    margin: { top: 0, bottom: 0, left: 2, right: 0 },
     borderStyle: 'round',
     borderColor: active ? p : dim,
     dimBorder: !active,
+    width: getContentWidth() - 6,
   });
-};
-
-function hintLine(items) {
-  const { dim } = getTheme();
-  return '\n' + chalk.hex(dim)('    ' + items.join('  ·  '));
-}
-
-// every renderer returns a string — no console.log
-
-export function menuPage(idx) {
-  const { primary: p, muted } = getTheme();
-  const o = [buildProfile(), ''];
-
-  const labels = ['Projects', 'Experience', 'Links', 'About', 'Theme', 'Exit'];
-  for (let i = 0; i < labels.length; i++) {
-    const on = i === idx;
-    const pre = on ? chalk.hex(p)('  > ') : '    ';
-    const txt = on ? chalk.bold.white(labels[i]) : chalk.hex(muted)(labels[i]);
-    o.push(pre + txt);
-  }
-
-  o.push(hintLine(['j/k navigate', 'l/enter select', 'q quit']));
-  return o.join('\n');
 }
 
 export function projectsPage(idx) {
-  const { primary: p, accent, muted, dim, ok } = getTheme();
-  const o = [chalk.hex(p).bold('\n    ── Projects ──\n')];
-
+  const { accent, text, muted, dim, ok } = getTheme();
+  const o = [sectionTitle('Projects')];
   for (let i = 0; i < projects.length; i++) {
     const proj = projects[i];
     const on = i === idx;
     const content = [
-      on ? chalk.bold.white(proj.name) : chalk.hex(muted)(proj.name),
-      on ? chalk.white(proj.desc) : chalk.hex(dim)(proj.desc),
+      on ? chalk.hex(text).bold(proj.name) : chalk.hex(muted)(proj.name),
+      on ? chalk.hex(text)(proj.desc) : chalk.hex(dim)(proj.desc),
       on ? chalk.hex(accent)(proj.tech) : chalk.hex(dim)(proj.tech),
-      on
-        ? chalk.hex(ok)('> ') + chalk.underline.hex(ok)(proj.link)
-        : chalk.hex(dim)('  ' + proj.link),
+      on ? chalk.hex(ok)('> ') + chalk.underline.hex(ok)(proj.link) : chalk.hex(dim)('  ' + proj.link),
     ].join('\n');
     o.push(card(content, on));
   }
-
-  o.push(hintLine(['j/k navigate', 'l/enter open', 'h/q back']));
-  return o.join('\n');
+  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  l/enter open  ·  h/q back'));
+  return frame(o.join('\n'), getContentWidth());
 }
 
 export function experiencePage(idx) {
-  const { primary: p, accent, muted, dim } = getTheme();
-  const o = [chalk.hex(p).bold('\n    ── Experience ──\n')];
-
+  const { accent, text, muted, dim } = getTheme();
+  const o = [sectionTitle('Experience')];
   for (let i = 0; i < experience.length; i++) {
     const exp = experience[i];
     const on = i === idx;
-    const title = on
-      ? chalk.bold.white(exp.role) +
-        chalk.hex(muted)(' @ ') +
-        chalk.hex(accent).bold(exp.company)
-      : chalk.hex(muted)(exp.role) +
-        chalk.hex(dim)(' @ ') +
-        chalk.hex(dim)(exp.company);
+    const title =
+      (on ? chalk.hex(text).bold(exp.role) + chalk.hex(muted)(' @ ') + chalk.hex(accent).bold(exp.company)
+        : chalk.hex(muted)(exp.role) + chalk.hex(dim)(' @ ') + chalk.hex(dim)(exp.company));
     const content = [
       title,
-      on
-        ? chalk.hex(muted)(`${exp.location}  ·  ${exp.period}`)
-        : chalk.hex(dim)(`${exp.location}  ·  ${exp.period}`),
-      on ? chalk.white(exp.desc) : chalk.hex(dim)(exp.desc),
+      on ? chalk.hex(muted)(`${exp.location}  ·  ${exp.period}`) : chalk.hex(dim)(`${exp.location}  ·  ${exp.period}`),
+      on ? chalk.hex(text)(exp.desc) : chalk.hex(dim)(exp.desc),
     ].join('\n');
     o.push(card(content, on));
   }
-
-  o.push(hintLine(['j/k navigate', 'h/q back']));
-  return o.join('\n');
+  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  h/q back'));
+  return frame(o.join('\n'), getContentWidth());
 }
 
 export function linksPage(idx) {
-  const { primary: p, muted, dim, ok } = getTheme();
-  const o = [chalk.hex(p).bold('\n    ── Links ──\n')];
-
+  const { primary: p, text, muted, dim, ok } = getTheme();
+  const o = [sectionTitle('Links')];
   const rows = [
     ['GitHub', links.github],
     ['LinkedIn', links.linkedin],
     ['Twitter / X', links.twitter],
     ['Email', links.email],
   ];
-
   for (let i = 0; i < rows.length; i++) {
     const [label, url] = rows[i];
     const on = i === idx;
     const pre = on ? chalk.hex(p)('  > ') : '    ';
-    const lbl = on
-      ? chalk.bold.white(label.padEnd(14))
-      : chalk.hex(muted)(label.padEnd(14));
+    const lbl = on ? chalk.hex(text).bold(label.padEnd(14)) : chalk.hex(muted)(label.padEnd(14));
     const link = on ? chalk.underline.hex(ok)(url) : chalk.hex(dim)(url);
     o.push(pre + lbl + link);
   }
-
-  o.push(hintLine(['j/k navigate', 'l/enter open', 'h/q back']));
-  return o.join('\n');
+  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  l/enter open  ·  h/q back'));
+  return frame(o.join('\n'), getContentWidth());
 }
 
 export function aboutPage() {
-  const { primary: p } = getTheme();
-  const content = profile.about
-    .map((line) => (line ? chalk.white(line) : ''))
-    .join('\n');
-
+  const { primary: p, text } = getTheme();
+  const content = profile.about.map((line) => (line ? chalk.hex(text)(line) : '')).join('\n');
   const o = [
-    chalk.hex(p).bold('\n    ── About ──\n'),
+    sectionTitle('About'),
     boxen(content, {
       padding: { top: 0, bottom: 0, left: 1, right: 1 },
-      margin: { top: 0, bottom: 0, left: 4, right: 0 },
+      margin: { top: 0, bottom: 0, left: 2, right: 0 },
       borderStyle: 'round',
       borderColor: p,
+      width: getContentWidth() - 6,
     }),
-    hintLine(['h/q back']),
+    chalk.hex(getTheme().dim)('\n    h/q back'),
   ];
-  return o.join('\n');
+  return frame(o.join('\n'), getContentWidth());
 }
 
 export function themePage(idx) {
-  const { primary: p, muted, dim } = getTheme();
+  const { primary: p, text, muted } = getTheme();
   const themeIds = getThemeIds();
-  const o = [chalk.hex(p).bold('\n    ── Theme ──\n')];
-
+  const o = [sectionTitle('Theme')];
   for (let i = 0; i < themeIds.length; i++) {
     const id = themeIds[i];
-    const theme = themes[id];
+    const t = themes[id];
     const on = i === idx;
     const pre = on ? chalk.hex(p)('  > ') : '    ';
-    const txt = on
-      ? chalk.bold.white(theme.name)
-      : chalk.hex(muted)(theme.name);
-    o.push(pre + txt);
+    const label = on ? chalk.hex(text).bold(t.name) : chalk.hex(muted)(t.name);
+    o.push(pre + label);
   }
-
-  o.push(hintLine(['j/k navigate', 'l/enter select', 'h/q back']));
-  return o.join('\n');
+  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  l/enter select  ·  h/q back'));
+  return frame(o.join('\n'), getContentWidth());
 }
 
 export function goodbyePage() {
-  const { primary: p, accent } = getTheme();
-  return boxen(chalk.hex(p).bold('Thanks for stopping by.'), {
-    padding: { top: 0, bottom: 0, left: 2, right: 2 },
-    margin: { top: 1, bottom: 1, left: 4, right: 0 },
-    borderStyle: 'round',
-    borderColor: accent,
-  });
+  const { primary: p } = getTheme();
+  const w = getContentWidth();
+  const line = chalk.hex(p).bold('Thanks for stopping by.');
+  return frame(line + ' '.repeat(Math.max(0, w - 24)), w);
 }

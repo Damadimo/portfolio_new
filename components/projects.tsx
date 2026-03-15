@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react"
 
 const projects = [
   {
-    title: "AI (RC) Car",
+    title: "Sentient AI Car",
     description: "An autonomous RC car that talks to you and can take you anywhere you want.",
     tech: ["Python", "Hugging Face", "NLP", "esp32"],
     link: "https://github.com/damadimo/beemerai",

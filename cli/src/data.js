@@ -1,6 +1,7 @@
 export const profile = {
   name: 'Adam Abdalla',
-  tagline: 'helloOOoo, I\'m Adam, an ece student @ UofT and ML researcher @ MIT. \n\nRight now I\'m super interested in how we can make ML work-loads more effecient and scalable. \n\n I love building cool shit so if you have any fun ideas hit me up!!',
+  tagline:
+    "hiii, I'm Adam, an ece student @ UofT and ML researcher @ MIT.\n\ndI'm interested in all things software, but right now I'm really excited about improving the performance of models in inference. \n\nAbove all though I love building cool shit so if you have any fun ideas hit me up!!",
   about: [
     "I'm an ece student @ UofT who is super excited about all things ML.",
     'Currently diving deeper into positive unlabeled learning',
@@ -13,7 +14,7 @@ export const profile = {
 
 export const projects = [
   {
-    name: 'AI (RC) Car',
+    name: 'A Sentient Car',
     desc: 'An autonomous RC car that talks to you and can take you anywhere you want.',
     tech: 'Python · Hugging Face · NLP · ESP32',
     link: 'https://github.com/damadimo/beemerai',

@@ -2,36 +2,16 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useTheme } from "next-themes"
-import { useEffect, useState, useRef } from "react"
-import { Github, Linkedin, Mail, Palette } from "lucide-react"
-
-const themes = [
-  { id: "light", label: "Light", color: "#e8dcc8" },
-  { id: "dark", label: "Dark", color: "#2e2e2e" },
-  { id: "nord", label: "Nord", color: "#3b4252" },
-  { id: "rose", label: "Rosé", color: "#4a2040" },
-  { id: "emerald", label: "Emerald", color: "#1a3a2a" },
-]
+import { useEffect, useState } from "react"
+import { Github, Linkedin, Mail, Moon, Sun } from "lucide-react"
 
 export function Header() {
   const pathname = usePathname()
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const [themeOpen, setThemeOpen] = useState(false)
-  const themeRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     setMounted(true)
-  }, [])
-
-  useEffect(() => {
-    function handleClickOutside(e: MouseEvent) {
-      if (themeRef.current && !themeRef.current.contains(e.target as Node)) {
-        setThemeOpen(false)
-      }
-    }
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => document.removeEventListener("mousedown", handleClickOutside)
   }, [])
 
   const isActive = (path: string) => {
@@ -106,36 +86,19 @@ export function Header() {
           >
             <Mail className="h-[18px] w-[18px]" />
           </a>
-          <div ref={themeRef} className="relative">
+          {mounted && (
             <button
-              onClick={() => setThemeOpen(!themeOpen)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Change theme"
+              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              className="cursor-pointer text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={theme === "dark" ? "Switch to light mode" : "Switch to dark mode"}
             >
-              <Palette className="h-[18px] w-[18px]" />
+              {theme === "dark" ? (
+                <Sun className="h-[18px] w-[18px]" />
+              ) : (
+                <Moon className="h-[18px] w-[18px]" />
+              )}
             </button>
-            {mounted && themeOpen && (
-              <div className="absolute right-0 top-full mt-3 p-2 rounded-xl bg-background/90 backdrop-blur-md border border-border shadow-lg min-w-[140px]">
-                {themes.map((t) => (
-                  <button
-                    key={t.id}
-                    onClick={() => { setTheme(t.id); setThemeOpen(false) }}
-                    className={`flex items-center gap-2.5 w-full px-3 py-1.5 rounded-lg text-sm transition-colors ${
-                      theme === t.id
-                        ? "text-foreground bg-secondary"
-                        : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-                    }`}
-                  >
-                    <span
-                      className="h-3 w-3 rounded-full shrink-0 border border-foreground/10"
-                      style={{ backgroundColor: t.color }}
-                    />
-                    {t.label}
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
+          )}
         </nav>
       </div>
     </header>

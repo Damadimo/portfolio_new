@@ -1,7 +1,7 @@
 {
   "name": "adamab",
   "version": "1.0.0",
-  "description": "Adam Abdalla's portfolio — right in your terminal",
+  "description": "bomboclaat terminal portfolio",
   "type": "module",
   "bin": {
     "adamab": "./bin/index.js"

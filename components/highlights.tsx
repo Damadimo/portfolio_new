@@ -2,9 +2,9 @@ import Link from "next/link"
 
 export const highlights = [
   {
-    text: "an",
-    bold: "ai (rc) car",
-    suffix: "that talks to you, and can take you anywhere you want",
+    text: "an (almost) sentient",
+    bold: "ai car",
+    suffix: "that talks to you, and can drive around by itself",
     link: "https://github.com/damadimo/beemerai",
     icon: "car",
     iconColor: "#d4807a", // soft coral
@@ -12,7 +12,7 @@ export const highlights = [
   {
     text: "a claude-powered",
     bold: "website cloner",
-    suffix: "(you give it a link, it clones the whole frontend)",
+    suffix: "",
     link: "https://github.com/damadimo/PixelTwinWebCloner",
     icon: "copy",
     iconColor: "#a882c4", // soft purple
@@ -20,7 +20,7 @@ export const highlights = [
   {
     text: "a",
     bold: "local llm-platform",
-    suffix: "to run your own models on your own hardware (bye bye subscription fees)",
+    suffix: "to run open-source models on your own hardware",
     link: "https://github.com/damadimo/local-llm-api",
     icon: "server",
     iconColor: "#6a9fb5", // soft teal
@@ -28,7 +28,7 @@ export const highlights = [
   {
     text: "a ",
     bold: "privacy advisor agent",
-    suffix: "that automates privacy rights compliance with regulations like GDPR and CCPA",
+    suffix: "that automates compliance (ex: GDPR, CCPA)",
     link: "https://github.com/damadimo/privacy_advisor_agent",
     icon: "shield",
     iconColor: "#7cb38a", // soft green

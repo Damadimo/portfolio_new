@@ -1,15 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, Car, Copy, Server, Shield, Search } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import { highlights } from "./highlights"
-
-const iconMap: Record<string, React.ComponentType<{ className?: string; style?: React.CSSProperties }>> = {
-  car: Car,
-  copy: Copy,
-  server: Server,
-  shield: Shield,
-  search: Search,
-}
 
 export function Hero() {
   return (
@@ -18,13 +10,13 @@ export function Hero() {
         helloooo0ooo im<span className="font-bold italic ml-4">Adam</span>
       </h1>
       <p className="text-base sm:text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mb-10 transition-transform duration-200 hover:-translate-y-0.5">
-        i'm an incoming eng intern @{" "}
+        I'm an incoming eng intern @{" "}
         <Link href="https://www.shopify.com" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-0.5 font-bold text-foreground">
           <Image src="/shopify-logo-png-transparent.png" alt="Shopify" width={22} height={22} className="inline-block" />
           Shopify
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-        </Link>{" "}and an ML researcher @{" "}
+        </Link>{" "}and a researcher @{" "}
         <Link href="https://www.mit.edu" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-baseline">
           <Image src="/mit-logo.png" alt="MIT" width={44} height={22} className="inline-block translate-y-0.5" />
           <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
@@ -45,33 +37,28 @@ export function Hero() {
           <span className="italic font-bold text-muted-foreground">some cool things ive built:</span>
         </div>
         <div className="ml-6 space-y-1">
-          {highlights.map((item, index) => {
-            const Icon = item.icon ? iconMap[item.icon] : null
-            return (
-              <div key={index} className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
-                <span className="text-muted-foreground select-none mt-0.5">↳</span>
-                <span>
-                  {item.text}{" "}
-                  {item.link ? (
-                    <Link href={item.link} target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-1.5 font-bold">
-                      {item.bold}
-                      {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 inline-block" style={{ color: item.iconColor }} />}
-                      <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
-                      <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-                    </Link>
-                  ) : (
-                    <span className="group relative inline-flex items-center gap-1.5 font-bold cursor-default">
-                      {item.bold}
-                      {Icon && <Icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 inline-block" style={{ color: item.iconColor }} />}
-                      <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
-                      <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
-                    </span>
-                  )}{" "}
-                  {item.suffix}
-                </span>
-              </div>
-            )
-          })}
+          {highlights.map((item, index) => (
+            <div key={index} className="flex items-start gap-3 py-0.5 transition-transform duration-200 hover:-translate-y-0.5">
+              <span className="text-muted-foreground select-none mt-0.5">-</span>
+              <span>
+                {item.text}{" "}
+                {item.link ? (
+                  <Link href={item.link} target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center gap-1.5 font-bold">
+                    {item.bold}
+                    <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                    <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                  </Link>
+                ) : (
+                  <span className="group relative inline-flex items-center gap-1.5 font-bold cursor-default">
+                    {item.bold}
+                    <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-full bg-current/20" />
+                    <span className="absolute left-0 -bottom-0.5 h-[1.5px] w-0 bg-current transition-all duration-[420ms] ease-out group-hover:w-full" />
+                  </span>
+                )}{" "}
+                {item.suffix}
+              </span>
+            </div>
+          ))}
         </div>
       </div>
       
