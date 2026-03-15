@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Adam Abdalla',
   tagline:
-    "hiii, I'm Adam, an ece student @ UofT and ML researcher @ MIT.\n\ndI'm interested in all things software, but right now I'm really excited about improving the performance of models in inference. \n\nAbove all though I love building cool shit so if you have any fun ideas hit me up!!",
+    "hiii, I'm Adam, an ece student @ UofT and ML researcher @ MIT.\n\nI'm interested in all things software, but right now I'm really excited about improving the performance of models in inference. \n\nAbove all though I love building cool shit so if you have any fun ideas hit me up!!",
   about: [
     "I'm an ece student @ UofT who is super excited about all things ML.",
     'Currently diving deeper into positive unlabeled learning',

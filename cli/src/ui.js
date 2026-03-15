@@ -16,6 +16,10 @@ function getContentWidth() {
   return Math.max(MIN_WIDTH, cols - 8);
 }
 
+function getVisibleRows() {
+  return Math.max(10, (process.stdout.rows || 24) - 2);
+}
+
 function loadName() {
   const raw = readFileSync(
     path.join(__dirname, '..', 'ascii', 'name.txt'),
@@ -81,14 +85,14 @@ function buildProfile(maxLines, contentWidth) {
 }
 
 function frame(content, contentWidth) {
-  const { dim } = getTheme();
+  const { primary } = getTheme();
   return boxen(content, {
     width: contentWidth,
     padding: 0,
     margin: 0,
     borderStyle: 'round',
-    borderColor: dim,
-    dimBorder: true,
+    borderColor: primary,
+    dimBorder: false,
   });
 }
 
@@ -116,20 +120,20 @@ function sectionTitle(label) {
 }
 
 function card(content, active = false) {
-  const { primary: p, dim } = getTheme();
+  const { primary: p, muted } = getTheme();
   return boxen(content, {
     padding: { top: 0, bottom: 0, left: 1, right: 1 },
     margin: { top: 0, bottom: 0, left: 2, right: 0 },
     borderStyle: 'round',
-    borderColor: active ? p : dim,
+    borderColor: active ? p : muted,
     dimBorder: !active,
     width: getContentWidth() - 6,
   });
 }
 
-export function projectsPage(idx) {
+export function projectsPage(idx, scrollOffset = 0) {
   const { accent, text, muted, dim, ok } = getTheme();
-  const o = [sectionTitle('Projects')];
+  const blocks = [sectionTitle('Projects')];
   for (let i = 0; i < projects.length; i++) {
     const proj = projects[i];
     const on = i === idx;
@@ -139,15 +143,28 @@ export function projectsPage(idx) {
       on ? chalk.hex(accent)(proj.tech) : chalk.hex(dim)(proj.tech),
       on ? chalk.hex(ok)('> ') + chalk.underline.hex(ok)(proj.link) : chalk.hex(dim)('  ' + proj.link),
     ].join('\n');
-    o.push(card(content, on));
+    blocks.push(card(content, on));
   }
-  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  l/enter open  ·  h/q back'));
-  return frame(o.join('\n'), getContentWidth());
+  blocks.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  l/enter open  ·  h/q back'));
+  const lines = blocks.flatMap((b) => b.split('\n'));
+  const visibleRows = getVisibleRows();
+  let start = 0;
+  const itemStarts = [];
+  for (let i = 0; i < blocks.length - 1; i++) {
+    itemStarts.push(start);
+    start += blocks[i].split('\n').length;
+  }
+  const totalLines = lines.length;
+  const selectedStart = idx < itemStarts.length ? itemStarts[idx] : 0;
+  const scroll = Math.max(0, Math.min(selectedStart, totalLines - visibleRows));
+  const slice = lines.slice(scroll, scroll + visibleRows);
+  const frameStr = frame(slice.join('\n'), getContentWidth());
+  return { frame: frameStr, scrollOffset: scroll };
 }
 
-export function experiencePage(idx) {
+export function experiencePage(idx, scrollOffset = 0) {
   const { accent, text, muted, dim } = getTheme();
-  const o = [sectionTitle('Experience')];
+  const blocks = [sectionTitle('Experience')];
   for (let i = 0; i < experience.length; i++) {
     const exp = experience[i];
     const on = i === idx;
@@ -159,10 +176,23 @@ export function experiencePage(idx) {
       on ? chalk.hex(muted)(`${exp.location}  ·  ${exp.period}`) : chalk.hex(dim)(`${exp.location}  ·  ${exp.period}`),
       on ? chalk.hex(text)(exp.desc) : chalk.hex(dim)(exp.desc),
     ].join('\n');
-    o.push(card(content, on));
+    blocks.push(card(content, on));
   }
-  o.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  h/q back'));
-  return frame(o.join('\n'), getContentWidth());
+  blocks.push(chalk.hex(getTheme().dim)('\n    j/k navigate  ·  h/q back'));
+  const lines = blocks.flatMap((b) => b.split('\n'));
+  const visibleRows = getVisibleRows();
+  let start = 0;
+  const itemStarts = [];
+  for (let i = 0; i < blocks.length - 1; i++) {
+    itemStarts.push(start);
+    start += blocks[i].split('\n').length;
+  }
+  const totalLines = lines.length;
+  const selectedStart = idx < itemStarts.length ? itemStarts[idx] : 0;
+  const scroll = Math.max(0, Math.min(selectedStart, totalLines - visibleRows));
+  const slice = lines.slice(scroll, scroll + visibleRows);
+  const frameStr = frame(slice.join('\n'), getContentWidth());
+  return { frame: frameStr, scrollOffset: scroll };
 }
 
 export function linksPage(idx) {

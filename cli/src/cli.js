@@ -51,6 +51,7 @@ const WRAP_ON = '\x1B[?7h';
 export async function run() {
   let page = 'menu';
   let idx = 0;
+  let scrollOffset = 0;
 
   const write = (s) => process.stdout.write(s);
 
@@ -61,7 +62,19 @@ export async function run() {
   process.stdin.resume();
 
   const draw = () => {
-    const frame = renderers[page](idx).replace(/\n$/, '');
+    let out;
+    if (page === 'projects' || page === 'experience') {
+      out = renderers[page](idx, scrollOffset);
+      if (out && typeof out === 'object' && 'frame' in out) {
+        scrollOffset = out.scrollOffset;
+        out = out.frame;
+      } else {
+        out = String(out);
+      }
+    } else {
+      out = renderers[page](idx);
+    }
+    const frame = out.replace(/\n$/, '');
     const lines = frame.split('\n').map((l) => l + '\x1B[K').join('\n');
     write(HIDE + HOME + lines + '\x1B[0J' + SHOW);
   };
@@ -69,6 +82,7 @@ export async function run() {
   const go = (target) => {
     page = target;
     idx = 0;
+    scrollOffset = 0;
     draw();
   };
 
