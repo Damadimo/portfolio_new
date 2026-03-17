@@ -1,7 +1,7 @@
 export const profile = {
   name: 'Adam Abdalla',
   tagline:
-    "hiii, I'm Adam, an ece student @ UofT and ML researcher @ MIT.\n\nI'm interested in all things software, but right now I'm really excited about improving the performance of models in inference. \n\nAbove all though I love building cool shit so if you have any fun ideas hit me up!!",
+    "hiii, I'm Adam, an ece student @ UofT and ML researcher @ MIT.\n\nI love building cool stuff so if you have any fun ideas hit me up!!",
   about: [
     "I'm an ece student @ UofT who is super excited about all things ML.",
     'Currently diving deeper into positive unlabeled learning',
@@ -15,7 +15,7 @@ export const profile = {
 export const projects = [
   {
     name: 'A Sentient Car',
-    desc: 'An autonomous RC car that talks to you and can take you anywhere you want.',
+    desc: 'An (almost) sentient autonomous car that can talk and drive you anywhere you want.',
     tech: 'Python · Hugging Face · NLP · ESP32',
     link: 'https://github.com/damadimo/beemerai',
   },
@@ -27,7 +27,7 @@ export const projects = [
   },
   {
     name: 'Local LLM Platform',
-    desc: 'Run your own language models on your own hardware — no subscription fees.',
+    desc: 'Run your own language models on your own hardware without any subscription fees.',
     tech: 'Python · FastAPI · PyTorch · Docker · Hugging Face',
     link: 'https://github.com/damadimo/local-llm-api',
   },
@@ -58,7 +58,7 @@ export const experience = [
     company: 'MIT',
     location: 'Cambridge, MA',
     period: 'Jan 2025 – Present',
-    desc: 'Self-supervised geospatial learning from sparse Positive Unlabeled data.',
+    desc: 'Working on positive unlabeled learning.',
   },
   {
     role: 'Software & Applied ML Engineer',

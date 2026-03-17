@@ -13,7 +13,9 @@ const MIN_WIDTH = 40;
 
 function getContentWidth() {
   const cols = process.stdout.columns || 80;
-  return Math.max(MIN_WIDTH, cols - 8);
+  // Use nearly full terminal width without wrapping the border.
+  // Boxen's rendered width includes the border; leaving 1 column of slack avoids accidental wraps on 80x24.
+  return Math.max(MIN_WIDTH, cols - 2);
 }
 
 function getVisibleRows() {
@@ -35,6 +37,23 @@ try {
   nameLines = loadName();
 } catch {
   nameLines = ['  ADAM'];
+}
+
+function loadChatName() {
+  const raw = readFileSync(
+    path.join(__dirname, '..', 'ascii', 'name_chat.txt'),
+    'utf8'
+  );
+  const lines = raw.split('\n');
+  while (lines.length && !lines[lines.length - 1].trim()) lines.pop();
+  return lines;
+}
+
+let chatNameLines = [];
+try {
+  chatNameLines = loadChatName();
+} catch {
+  chatNameLines = nameLines;
 }
 
 function wrap(str, width) {
@@ -61,6 +80,21 @@ function padLine(s, width) {
 
 function stripAnsi(s) {
   return (s || '').replace(/\x1B\[[0-9;]*m/g, '');
+}
+
+function renderInlineFormatting(s) {
+  const out = [];
+  const str = String(s || '');
+  const re = /\*\*(.+?)\*\*/g;
+  let last = 0;
+  let m;
+  while ((m = re.exec(str))) {
+    if (m.index > last) out.push(str.slice(last, m.index));
+    out.push(chalk.bold(m[1]));
+    last = m.index + m[0].length;
+  }
+  if (last < str.length) out.push(str.slice(last));
+  return out.join('');
 }
 
 function buildProfile(maxLines, contentWidth) {
@@ -98,7 +132,7 @@ function frame(content, contentWidth) {
 
 export function menuPage(idx) {
   const { primary: p, text, muted } = getTheme();
-  const labels = ['Projects', 'Experience', 'Links', 'About', 'Theme', 'Exit'];
+  const labels = ['ai-adam', 'experience', 'projects', 'links', 'about', 'theme', 'exit'];
   const contentWidth = getContentWidth();
   const rows = process.stdout.rows || 24;
   const borderAndMenu = 2 + 1 + labels.length + 1 + 1 + 1;
@@ -107,11 +141,163 @@ export function menuPage(idx) {
   const menuLines = labels.map((label, i) =>
     (i === idx ? chalk.hex(p)('  > ') : '    ') + (i === idx ? chalk.hex(text).bold(label) : chalk.hex(muted)(label))
   );
-  const hint = chalk.hex(getTheme().dim)('    j/k navigate  ·  l/enter select  ·  q quit');
+  const hint = chalk.hex(getTheme().dim)('    j/k navigate  ·  l/enter select  ·  c ai-adam  ·  q quit');
   const innerWidth = contentWidth - 2;
   const all = [...profileLines, '', ...menuLines, '', hint];
   const padded = all.map((line) => line + ' '.repeat(Math.max(0, innerWidth - stripAnsi(line).length)));
   return frame(padded.join('\n'), contentWidth);
+}
+
+export function chatPage({
+  messages = [],
+  input = '',
+  scrollOffset = 0,
+  commandPalette,
+} = {}) {
+  const { muted, text, dim, primary, ok, accent } = getTheme();
+  // Chat mode intentionally has NO outer frame border. Use full terminal width.
+  const cols = process.stdout.columns || 80;
+  const rows = process.stdout.rows || 24;
+  const innerWidth = Math.max(40, cols - 2);
+  const visibleRows = Math.max(10, rows);
+
+  const leftPad = '  ';
+
+  const nameTagLines = (() => {
+    const grad = getThemeGradient();
+    const textWidth = Math.max(10, innerWidth - leftPad.length * 2);
+    const raw = chatNameLines.map((l) => padLine(l.slice(0, textWidth), textWidth));
+    const colored = grad.multiline(raw.join('\n')).split('\n');
+    return colored.map((l) => leftPad + l);
+  })();
+
+  const formatMsg = (m) => {
+    const type = (m?.type || 'message').toLowerCase();
+    if (type === 'status') {
+      const icon = chalk.hex(ok)('●');
+      const label = chalk.hex(ok).bold(m?.label || 'Status');
+      const rest = m?.detail ? chalk.hex(dim)(m.detail) : '';
+      return [leftPad + icon + ' ' + label + (rest ? ' ' + rest : '')];
+    }
+    if (type === 'thinking') {
+      const body = (m?.content || 'Thinking').trim();
+      return [leftPad + chalk.hex(primary).bold(renderInlineFormatting(body))];
+    }
+
+    const role = (m?.role || 'user').toLowerCase();
+    const body = (m?.content || '').trim();
+    if (role === 'user') {
+      const wrapped = body === '' ? [''] : wrap(body, Math.max(10, innerWidth - 4));
+      const out = [leftPad + chalk.hex(dim)('> ') + chalk.hex(text)(wrapped[0] || '')];
+      for (let i = 1; i < wrapped.length; i++) out.push(leftPad + '  ' + chalk.hex(text)(wrapped[i]));
+      return out;
+    }
+
+    const wrapped = body === '' ? [''] : wrap(body, Math.max(10, innerWidth - 4));
+    const out = [
+      leftPad + chalk.hex(text)('• ') + chalk.hex(text)(renderInlineFormatting(wrapped[0] || '')),
+    ];
+    for (let i = 1; i < wrapped.length; i++) {
+      out.push(leftPad + '  ' + chalk.hex(text)(renderInlineFormatting(wrapped[i])));
+    }
+    return out;
+  };
+
+  const transcriptLines = messages.flatMap((m) => [...formatMsg(m), '']);
+
+  const paletteOpen = !!commandPalette?.open;
+  const paletteItems = Array.isArray(commandPalette?.items) ? commandPalette.items : [];
+  const paletteIdx = Math.max(0, Math.min(commandPalette?.idx ?? 0, Math.max(0, paletteItems.length - 1)));
+  const paletteScroll = Math.max(0, commandPalette?.scrollOffset ?? 0);
+  const paletteMaxRows = 8;
+  const paletteMode = commandPalette?.mode || 'commands';
+
+  const inputBox = boxen(leftPad + chalk.hex(dim)('> ') + chalk.hex(text)(input || ''), {
+    width: innerWidth,
+    padding: { top: 0, bottom: 0, left: 0, right: 0 },
+    margin: { top: 0, bottom: 0, left: 0, right: 0 },
+    borderStyle: 'round',
+    borderColor: muted,
+    dimBorder: false,
+  });
+
+  const shortcuts = leftPad + chalk.hex(dim)('enter send  ·  / commands  ·  ctrl+c back');
+
+  // Add some breathing room above the tag.
+  const headerLines = ['', ...nameTagLines];
+  const inputBoxLines = inputBox.split('\n');
+  const paletteLines = (() => {
+    if (!paletteOpen || !paletteItems.length) return [];
+    const rows = paletteItems.map((it, i) => {
+      const on = i === paletteIdx;
+      const cmd = on ? chalk.hex(text).bold(it.command) : chalk.hex(text)(it.command);
+      const desc = it.description
+        ? chalk.hex(dim)(paletteMode === 'prompts' ? '  —  ' + it.description : '  ' + it.description)
+        : '';
+      const pre = on ? chalk.hex(primary)('  ') : '  ';
+      return leftPad + pre + cmd + desc;
+    });
+    const maxScroll = Math.max(0, rows.length - paletteMaxRows);
+    const sc = Math.max(0, Math.min(paletteScroll, maxScroll));
+    return rows.slice(sc, sc + paletteMaxRows);
+  })();
+
+  // Layout: intro card → transcript → input box → (palette) → hint
+  // Keep input tight, but leave one line between dropdown and hints.
+  const footerLines = [
+    ...inputBoxLines,
+    ...(paletteLines.length ? paletteLines : []),
+    ...(paletteLines.length && !paletteOpen ? [''] : []),
+    ...(paletteOpen ? [] : [shortcuts]),
+  ];
+  const available = Math.max(3, visibleRows - headerLines.length - footerLines.length - 2);
+
+  const total = transcriptLines.length;
+  const maxScroll = Math.max(0, total - available);
+  const scroll = Math.max(0, Math.min(scrollOffset, maxScroll));
+  const slice = transcriptLines.slice(scroll, scroll + available);
+  const hasOverflowAbove = scroll > 0;
+  const hasOverflowBelow = scroll + available < total;
+  const overflowHint =
+    hasOverflowAbove || hasOverflowBelow
+      ? leftPad +
+        chalk.hex(dim)(
+          `${hasOverflowAbove ? '↑' : ' '} more  ·  ${hasOverflowBelow ? '↓' : ' '} more  ·  ↑/↓ scroll`
+        )
+      : '';
+
+  const baseLines = [
+    ...headerLines,
+    ...(slice.length ? [''] : []),
+    ...(overflowHint ? [overflowHint] : []),
+    ...slice,
+    ...footerLines,
+  ];
+  const padded = baseLines
+    .slice(0, rows) // keep within terminal
+    .map((line) => {
+      const cleanLen = stripAnsi(line).length;
+      const clipped = cleanLen > innerWidth ? line.slice(0, innerWidth) : line;
+      return clipped + ' '.repeat(Math.max(0, innerWidth - stripAnsi(clipped).length));
+    });
+
+  // Cursor location inside the rendered output (no outer frame).
+  const inputPromptRowInner = (() => {
+    for (let i = padded.length - inputBoxLines.length; i < padded.length; i++) {
+      if (stripAnsi(padded[i]).includes('> ')) return i;
+    }
+    for (let i = padded.length - 1; i >= 0; i--) {
+      if (stripAnsi(padded[i]).includes('> ')) return i;
+    }
+    return padded.length - 1;
+  })();
+  const promptColInner0 = Math.max(0, stripAnsi(padded[inputPromptRowInner] || '').indexOf('> '));
+  const cursor = {
+    row: inputPromptRowInner + 1,
+    col: Math.max(1, Math.min(cols, (promptColInner0 + 3 + input.length) + 1)),
+  };
+
+  return { frame: padded.join('\n'), scrollOffset: scroll, cursor };
 }
 
 function sectionTitle(label) {

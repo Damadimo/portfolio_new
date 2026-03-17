@@ -27,12 +27,12 @@ export const themes = {
   ember: {
     name: 'Ember',
     primary: '#b45309',
-    accent: '#dc2626',
+    accent: '#F53610',
     text: '#fef3c7',
     muted: '#d97706',
     dim: '#292524',
     ok: '#ca8a04',
-    gradient: ['#44403c', '#78350f', '#b45309', '#dc2626', '#f59e0b'],
+    gradient: ['#F53610', '#78350f', '#b45309', '#CD0000', '#ea580c'],
   },
   dusk: {
     name: 'Dusk',
